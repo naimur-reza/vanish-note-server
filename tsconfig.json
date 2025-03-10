@@ -5,8 +5,10 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleDetection": "force",
+    "rootDir": "./",
     "jsx": "react-jsx",
     "allowJs": true,
+    "outDir": "./dist",
 
     // Bundler mode
     "moduleResolution": "bundler",
