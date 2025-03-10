@@ -5,9 +5,9 @@ import { generateSlug } from "../helpers/generateSlug";
 const createPoll = async (req: Request, res: Response) => {
   const data = req.body;
 
-  const { title } = data;
+  const { question } = data;
 
-  const slug = generateSlug(title);
+  const slug = generateSlug(question);
 
   const payload = {
     slug,
@@ -17,9 +17,13 @@ const createPoll = async (req: Request, res: Response) => {
 
   const result = await db.collection("polls").insertOne(payload);
 
+  const insertedPoll = await db
+    .collection("polls")
+    .findOne({ _id: result.insertedId });
+
   res.status(201).json({
     message: "Poll created successfully",
-    data: result,
+    data: insertedPoll,
   });
 };
 
