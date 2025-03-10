@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { connectDB } from "../config/db.ts";
+import { pollRoutes } from "./routes/poll.routes.ts";
 // Load environment variables
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 
 // Database Connection
 connectDB(); // Connect to MongoDB when the server starts
+
+app.use("/api/polls", pollRoutes);
 
 // Routes
 app.get("/", (_, res) => {
