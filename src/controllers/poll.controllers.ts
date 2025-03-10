@@ -8,15 +8,16 @@ const createPoll = async (req: Request, res: Response) => {
 
   const { question, options, ...restData } = data;
 
-  const modifiedOptions = options.map((option: string) => ({
+  const modifiedOptions = options.map((option: { value: string }) => ({
     id: generateId(8),
-    option,
+    value: option.value,
     votes: 0,
   }));
 
   const slug = generateSlug(question);
 
   const payload = {
+    question,
     slug,
     options: modifiedOptions,
     ...restData,
