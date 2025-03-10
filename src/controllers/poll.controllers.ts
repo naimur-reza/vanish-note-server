@@ -1,18 +1,31 @@
 import type { Request, Response } from "express";
 import { db } from "../config/db";
 import { generateSlug } from "../helpers/generateSlug";
+import { generateId } from "../lib/utils";
 
 const createPoll = async (req: Request, res: Response) => {
   const data = req.body;
 
-  const { question } = data;
+  const { question, options, ...restData } = data;
+
+  const modifiedOptions = options.map((option: string) => ({
+    id: generateId(8),
+    option,
+    votes: 0,
+  }));
 
   const slug = generateSlug(question);
 
   const payload = {
     slug,
+    options: modifiedOptions,
+    ...restData,
+    reactions: {
+      likes: 0,
+      trending: 0,
+    },
+
     createdAt: new Date(),
-    ...data,
   };
 
   const result = await db.collection("polls").insertOne(payload);

@@ -5,6 +5,6 @@ const router = Router();
 
 router.post("/create-poll", pollController.createPoll);
 
-router.get("/", pollController.getPollBySlug);
+router.get("/:slug", pollController.getPollBySlug);
 
 export const pollRoutes = router;
