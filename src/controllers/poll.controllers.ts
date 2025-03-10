@@ -27,6 +27,20 @@ const createPoll = async (req: Request, res: Response) => {
   });
 };
 
+const getPollBySlug = async (req: Request, res: Response) => {
+  const { slug } = req.params;
+
+  const result = await db.collection("polls").findOne({
+    slug: slug,
+  });
+
+  res.status(200).json({
+    message: "Poll retreived successfully",
+    data: result,
+  });
+};
+
 export const pollController = {
   createPoll,
+  getPollBySlug,
 };
