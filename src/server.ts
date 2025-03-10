@@ -1,8 +1,8 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import { connectDB } from "../config/db.ts";
-import { pollRoutes } from "./routes/poll.routes.ts";
+import { connectDB } from "./config/db";
+import { pollRoutes } from "./routes/poll.routes";
 // Load environment variables
 dotenv.config();
 

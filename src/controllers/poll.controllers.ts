@@ -1,9 +1,16 @@
 import type { Request, Response } from "express";
+import { db } from "../config/db";
 
-const createPoll = (req: Request, res: Response) => {
+const createPoll = async (req: Request, res: Response) => {
   const data = req.body;
-  res.json({
-    data,
+
+  const result = await db
+    .collection("polls")
+    .insertOne({ ...data, createdAt: new Date() });
+
+  res.status(201).json({
+    message: "Poll created successfully",
+    data: result,
   });
 };
 
