@@ -7,4 +7,6 @@ router.post("/create-poll", pollController.createPoll);
 
 router.get("/:slug", pollController.getPollBySlug);
 
+router.patch("/:slug", pollController.updatePoll);
+
 export const pollRoutes = router;

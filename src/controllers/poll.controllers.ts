@@ -45,7 +45,7 @@ const getPollBySlug = async (req: Request, res: Response) => {
   const { slug } = req.params;
 
   const result = await db.collection("polls").findOne({
-    slug: slug,
+    slug,
   });
 
   res.status(200).json({
@@ -54,7 +54,26 @@ const getPollBySlug = async (req: Request, res: Response) => {
   });
 };
 
+const updatePoll = async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  const data = req.body;
+
+  const response = await db.collection("polls").findOneAndUpdate(
+    {
+      slug,
+    },
+    { $set: data },
+    { upsert: true, returnDocument: "after" }
+  );
+
+  res.status(200).json({
+    message: "Poll updated successfully",
+    data: response,
+  });
+};
+
 export const pollController = {
   createPoll,
   getPollBySlug,
+  updatePoll,
 };
