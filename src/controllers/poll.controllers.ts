@@ -25,7 +25,7 @@ const createPoll = async (req: Request, res: Response) => {
       likes: 0,
       trending: 0,
     },
-
+    totalVotes: 0,
     createdAt: new Date(),
   };
 
