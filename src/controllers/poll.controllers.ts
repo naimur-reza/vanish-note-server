@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { ObjectId } from "mongodb";
 import { db } from "../config/db";
 import { generateSlug } from "../helpers/generateSlug";
 import { generateId } from "../lib/utils";
@@ -55,12 +56,13 @@ const getPollBySlug = async (req: Request, res: Response) => {
 };
 
 const updatePoll = async (req: Request, res: Response) => {
-  const { slug } = req.params;
+  const { id } = req.params;
   const data = req.body;
+  delete data._id;
 
   const response = await db.collection("polls").findOneAndUpdate(
     {
-      slug,
+      _id: new ObjectId(id),
     },
     { $set: data },
     { upsert: true, returnDocument: "after" }
