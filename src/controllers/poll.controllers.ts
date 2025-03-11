@@ -49,6 +49,17 @@ const getPollBySlug = async (req: Request, res: Response) => {
     slug,
   });
 
+  console.log(result);
+
+  if (!result) {
+    res.status(404).json({
+      message: "Poll not found",
+      data: null,
+    });
+
+    return;
+  }
+
   res.status(200).json({
     message: "Poll retreived successfully",
     data: result,
